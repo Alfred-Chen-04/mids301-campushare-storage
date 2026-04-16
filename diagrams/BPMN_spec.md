@@ -27,42 +27,86 @@
 
 ## Pool / lane structure (Database Interaction Layout, stacked vertically)
 
-```
-╔════════════════════════════════════════════════════════════════════════╗
-║ Pool 1: CampusShare Platform                     (~55% of canvas)     ║
-║ ┌──────────────────────────────────────────────────────────────────┐ ║
-║ │ Lane: Renter     ●→ [1]→ [2] → [4] → [5] → [8] → [9] → [11] ─┐ │ ║
-║ └──────────────────────────────────────────────────────────────┼──┘ ║
-║ ┌──────────────────────────────────────────────────────────────┼──┐ ║
-║ │ Lane: Host                  [6] →◇[7]───── [11] ←────────────┘  │ ║
-║ └──────────────────────────────────────────────────────────────┼──┘ ║
-║ ┌──────────────────────────────────────────────────────────────┼──┐ ║
-║ │ Lane: System       [3] ←────────────── [10] → [12] → [13] → [14] ●│║
-║ └──────────────────────────────────────────────────────────────┘  │ ║
-╚════════════════════════════════════════════════════════════════════════╝
-                           ↕ (dashed data association)
-╔════════════════════════════════════════════════════════════════════════╗
-║ Pool 2: Database                                 (~30% of canvas)     ║
-║  [Student]   [StorageListing]   [Booking]   [StoredItem]              ║
-║                [Payment]                   [Review]                    ║
-╚════════════════════════════════════════════════════════════════════════╝
-                           ↕ (only the Payment sub-process hits this pool)
-╔════════════════════════════════════════════════════════════════════════╗
-║ Pool 3: Payment Gateway (external, optional)     (~15% of canvas)     ║
-║   ○→ Validate method → Call API → Return response                     ║
-╚════════════════════════════════════════════════════════════════════════╝
+**Symbol key** (used in both views below):
 
-Legend: ●=Start event   ○=End event   ◇=XOR gateway   [n]=Activity n
-       →  = sequence flow (solid)   ↕ = data association (dashed)
-       ⇢  = message flow (dashed + open arrowhead, for cross-lane coordination)
+| Symbol | Meaning |
+|---|---|
+| `[n]` | Activity number n (full name in the 14-activity table) |
+| `●` | Start Event (thin circle) or End Event (thick circle) |
+| `◇` | XOR Exclusive Gateway (diamond with × inside) |
+| `⟦ ⟧` | Sub-process (collapsed rounded rectangle with `+`) |
+| `→` | Sequence flow — solid arrow, used **within** Pool 1 (same pool) |
+| `⇢` | Message flow — dashed line + open arrowhead, used for **async notifications** (e.g. Renter notifies Host) |
+| `⇄` | Bidirectional message flow (two message flows drawn in opposite directions) |
+
+> **Cross-lane sequence flows are normal**: when a sequence flow crosses a lane boundary inside Pool 1 (e.g. [2] Renter → [3] System), it is still a **sequence flow** (solid arrow). Only flows between different pools use a message flow (dashed).
+
+---
+
+### View 1 — Swimlane table (spatial reference for draw.io)
+
+Use this to know which activities to place in which lane and roughly where on the canvas.
+
+```
+Lane    | Activities (left → right = timeline)
+--------|-----------------------------------------------------------
+Renter  | [1] → [2] → [4] → [5] → [8] → [9] → [11]
+        |                    ↓ notify              ↕ msg flow
+Host    |                   [6] → [7◇] ─Yes─→ [11]
+        |                          └─ No → (End)
+System  |       [3]                [10] → [12] → [13] → [14] → ●
 ```
 
-**Key layout constraints**:
-1. The three lanes in Pool 1 run in parallel left→right, advancing the timeline
-2. Pool 2 is a single pool (no lanes); all data-store icons sit on one horizontal row
-3. Pool 3 is only used when the Payment Processing sub-process is expanded to show the external call; it can be omitted if the sub-process is kept collapsed
-4. The connection between `[6]` Host receive notification and `[5]` Renter submit request uses a **message flow** (cross-lane), not a sequence flow
-5. `[11]` Arrange handover time spans the Renter and Host lanes, with a bidirectional message flow between them
+Pool / canvas size guide:
+- **Pool 1 (Platform, 3 lanes)** — ~55% of canvas height
+- **Pool 2 (Database, no lanes)** — ~30% of canvas height, directly below Pool 1
+- **Pool 3 (Payment Gateway, optional)** — ~15% of canvas height, at the bottom
+
+Pool 2 data-store icons (barrel shape), one row:
+`[Student]   [StorageListing]   [Booking]   [StoredItem]   [Payment]   [Review]`
+
+Notes:
+- `[3]` is triggered by `[2]` — draw a sequence flow from Renter lane into System lane
+- `[10]` follows the Yes branch of `[7]` — sequence flow from Host lane into System lane
+- `[11]` sits at the Renter/Host lane boundary — draw a bidirectional message flow ⇄ between the two lane icons
+- `[12]` has an exception branch into Sub-process: Dispute Handling
+
+---
+
+### View 2 — Sequential flow (logic reference)
+
+Use this to understand the execution order, gateway branches, and where message flows occur.
+
+```
+● Start
+[1]  Renter  : Log in & verify .edu              → READ  Student
+[2]  Renter  : Enter search criteria
+[3]  System  : Query available listings          → READ  StorageListing
+[4]  Renter  : Browse and select a listing
+[5]  Renter  : Submit booking request            → WRITE Booking (pending)
+                 ⇢ message flow → Host notified
+[6]  Host    : Receive notification
+[7]  Host    : Approve or Decline?  ◇ XOR        → UPDATE Booking
+     ├─ Yes → [8]
+     └─ No  → End event  (UPDATE Booking: cancelled)
+[8]  Renter  : Upload item photos & declare value → WRITE StoredItem
+[9]  Renter  : ⟦Sub-process: Payment Processing⟧  → WRITE Payment
+[10] System  : Generate booking agreement         → UPDATE Booking (confirmed)
+[11] Renter + Host : Arrange handover time        ⇄ message flow (bidirectional)
+[12] System  : Record handover completion         → UPDATE Booking (active)
+               └─ if contested → ⟦Sub-process: Dispute Handling⟧
+[13] System  : End-of-term return confirmation    → UPDATE Booking (completed)
+[14] System  : Prompt mutual review               → WRITE Review
+● End
+
+Legend:
+  ●   = Start / End event (thin circle = start, thick circle = end)
+  ◇   = XOR exclusive gateway
+  ⟦⟧  = Sub-process symbol (rounded rectangle with + marker)
+  →   = sequence flow (solid arrow, same pool)
+  ⇢   = message flow (dashed line + open arrowhead, cross-lane or cross-pool)
+  ⇄   = bidirectional message flow
+```
 
 ---
 
@@ -141,19 +185,124 @@ Legend: ●=Start event   ○=End event   ◇=XOR gateway   [n]=Activity n
 
 ---
 
-## Drawing steps (draw.io)
+## Shape Quick Reference
 
-1. Open https://app.diagrams.net/ → New Diagram
-2. Shapes panel → More Shapes → enable "BPMN 2.0"
-3. Draw 3 horizontal pools first
-4. In Pool 1, add 3 lanes (Renter / Host / System)
-5. Place the Task blocks in the order of the 14-activity table; connect them with solid sequence flows
-6. Use a diamond (XOR exclusive gateway) for the gateway
-7. Use a rounded rectangle with a `+` mark for each sub-process
-8. Place data-store ("barrel") icons inside Pool 2
-9. Use dashed arrows for data associations
-10. Export: File → Export as → PNG (Border 20, 300 DPI, whole diagram)
-11. Save as `../diagrams/BPMN.png`
+Before drawing, find these shapes in the BPMN 2.0 panel in draw.io. Use the panel's search box if needed.
+
+| BPMN Element | What it looks like | draw.io search term |
+|---|---|---|
+| Start Event | Thin-border circle | `Start Event` |
+| End Event | Thick/bold-border circle | `End Event` |
+| User Task | Rounded rectangle + person icon (top-left) | `User Task` |
+| Service Task | Rounded rectangle + gear icon (top-left) | `Service Task` |
+| Receive Task | Rounded rectangle + envelope icon (top-left) | `Receive Task` |
+| Sub-Process (collapsed) | Rounded rectangle + **`+`** at bottom center | `Sub Process` |
+| XOR Exclusive Gateway | Diamond with **`×`** inside | `Exclusive Gateway` |
+| Data Store | Barrel / cylinder shape | `Data Store` |
+| Pool | Wide rectangle with label strip on left | `Pool` |
+| Sequence Flow | Solid arrow with filled arrowhead | default connector inside a pool |
+| Message Flow | Dashed arrow with **open** (hollow) arrowhead | `Message Flow` |
+| Data Association | Dashed line with no filled arrowhead | right-click any connector → Edit Style → `dashed=1;endArrow=open;` |
+
+---
+
+## Step-by-step drawing guide (draw.io)
+
+### A. Setup
+
+1. Open https://app.diagrams.net/ → **Create New Diagram** → choose **Blank**
+2. Enable BPMN shapes: click **`+ More Shapes`** at the bottom of the left panel → tick **"BPMN 2.0"** → click **OK**. BPMN shapes now appear in the left panel.
+3. Optional: File → Page Setup → set Orientation to **Landscape (A4)**
+
+### B. Create the three pools (top-to-bottom order)
+
+4. Drag a **Pool** shape onto the canvas. Label it: `CampusShare Platform`
+   - This is Pool 1. Resize it to fill roughly **55% of the canvas height**.
+5. Add 3 lanes inside Pool 1: **right-click the pool** → **Add Lane** (do this twice to get 3 lanes). Rename the lanes top-to-bottom: **Renter**, **Host**, **System**
+6. Drag a second **Pool** shape directly below Pool 1. Label it: `Database`
+   - This is Pool 2. Resize to ~**30% canvas height**. Do **not** add lanes.
+7. Drag a third **Pool** shape below Pool 2. Label it: `Payment Gateway`
+   - This is Pool 3. Resize to ~**15% canvas height**. Do **not** add lanes.
+
+> **Fixed layout (top → bottom):** Platform → Database → Payment Gateway. Do not put Database in the middle.
+
+### C. Place start and end events
+
+8. In the **Renter lane**, drag a **Start Event** (thin circle) to the **far left**.
+9. In the **System lane**, drag an **End Event** (thick circle) to the **far right**.
+10. In the **Host lane**, drag a second **End Event** to the right side of that lane — this is where the "No" branch of the gateway terminates (Booking cancelled).
+
+### D. Place the 14 activity shapes
+
+Refer to the **Swimlane Table (View 1)** for which lane each activity belongs to. Work left-to-right in each lane. Use the **Shape Quick Reference** above to pick the correct shape for each activity's BPMN Type (from the 14-activity table).
+
+Special cases requiring extra attention:
+
+- **[7] Approve or Decline**: Place a **User Task** box in the Host lane, then place an **Exclusive Gateway** (XOR `◇`) immediately to its right, also in the Host lane. Draw a sequence flow from [7 task] → [◇ gateway].
+- **[9] Payment Processing**: Use a **Sub-Process** shape. The `+` marker is automatic when you use the Sub-Process shape from the BPMN panel.
+- **[11] Arrange handover time**: Place this **User Task** in the **Renter lane** only. The Host's participation will be shown via a message flow in Step F — do not put a second box in the Host lane.
+- **[12] Record handover + Dispute Handling exception**: Place [12] as a **Service Task** in the System lane. Then drag a **Sub-Process** shape to the right of [12] in the System lane and label it `Dispute Handling`. You will connect these in Step E.
+
+### E. Draw sequence flows (solid arrows — within Pool 1)
+
+Hover over the source shape until blue connection dots appear, then drag from a dot to the target shape. Draw.io creates a solid sequence flow by default within a pool.
+
+Draw flows in this order:
+
+```
+[Start] → [1] → [2] → [3]
+[3] → [4] → [5]
+[6] → [7 task] → [◇ gateway]
+  ◇ "Yes" → [8] → [9] → [10] → [11] → [12] → [13] → [14] → [End]
+  ◇ "No"  → [End event in Host lane]
+[12] → [Dispute Handling sub-process]   (label this arrow: "if contested")
+[Dispute Handling sub-process] → [13]
+```
+
+> **Note**: [5] → [6] is drawn as a **message flow** in Step F, not a sequence flow.
+
+Cross-lane sequence flows (the arrow visually crosses the lane boundary — this is correct BPMN):
+- [2] (Renter) → [3] (System): arrow goes downward across the Renter/System boundary
+- [◇ Yes] (Host lane) → [8] (Renter lane): arrow goes upward
+- [10] (System) → [11] (Renter): arrow goes upward
+- [11] (Renter) → [12] (System): arrow goes downward
+
+After drawing, click each branch arrow from the gateway and **type a label**: `Yes` on the Yes branch, `No` on the No branch.
+
+### F. Draw message flows (dashed lines with open arrowhead — cross-lane async notifications)
+
+In draw.io, drag a **"Message Flow"** shape from the BPMN panel, or draw any connector and set its style to `dashed=1;endArrow=open;startArrow=none;`.
+
+Draw these two message flows:
+
+1. **[5] → [6]**: From the [5] Submit booking task (Renter lane) to the [6] Receive notification task (Host lane). This crosses the lane boundary — that is intentional.
+2. **[11] ⇄ Host lane**: From the [11] Arrange handover task (Renter lane), draw a message flow to a small **Intermediate Event** shape placed in the Host lane at the same horizontal position. Label the intermediate event `Confirm handover time`. Then draw a second message flow back from that intermediate event to [11]. This creates the bidirectional coordination.
+
+### G. Add data stores in Pool 2
+
+11. Drag 6 **Data Store** (barrel) shapes into Pool 2 (Database pool). Space them evenly in a single row.
+12. Label each: `Student`, `StorageListing`, `Booking`, `StoredItem`, `Payment`, `Review`
+
+### H. Draw data associations (dashed lines — activities to DB)
+
+Use the **DB mapping matrix** (in the "Data-flow arrow rules" section) to know which activities connect to which data store.
+
+To draw a data association in draw.io: draw any connector between an activity and a data store, then right-click → **Edit Style** → change to `dashed=1;endArrow=open;startArrow=none;`.
+
+Arrow direction:
+- **READ** (R in matrix): arrow points **from the data store to the activity**
+- **WRITE / UPDATE** (W / U in matrix): arrow points **from the activity to the data store**
+
+Activities with **no DB interaction** (all empty in matrix — do not draw any arrow): [2], [4], [6], [11]
+
+### I. Export
+
+13. File → **Export as** → **PNG**
+    - **Border width**: 20
+    - **Scale**: 100% (sufficient for 300 DPI equivalent at A4)
+    - Enable: **"Whole Diagram"** (exports the full canvas, not just the visible area)
+    - Background: white
+14. Save as `BPMN.png` in the `diagrams/` folder of this project
 
 ---
 
@@ -183,7 +332,11 @@ Legend: ●=Start event   ○=End event   ◇=XOR gateway   [n]=Activity n
 
 ---
 
-## Open questions
+## Decisions already made (no action needed)
 
-- [ ] Does Class 5-1 Slide 20's "Database Interaction Layout" require the Database pool on the top, the bottom, or the right? The current spec places it **mid-canvas** (a common convention for Database Interaction Layout); if the lecture slide differs, shift Pool 2 vertically in draw.io.
-- [ ] Do we need to explicitly show an external Payment Gateway pool? Recommended **yes**, because it directly supports the Task 4 §4.3 statement that Payment Processing "encapsulates the multi-step interaction with a third-party payment gateway."
+| Decision | Choice | Reason |
+|---|---|---|
+| Database pool position | **Below** the Platform pool | Standard Database Interaction Layout convention: business process on top, data layer below |
+| Payment Gateway pool | **Include it** (Pool 3, at the bottom) | Directly supports the Task 4 §4.3 claim that Payment Processing encapsulates a third-party gateway call |
+| [11] cross-lane placement | Activity box in **Renter lane** only; Host participation via message flow | Avoids duplicate boxes; message flow correctly represents asynchronous coordination |
+| [12] exception branch | Sequence flow labeled **"if contested"** → Dispute Handling sub-process → [13] | Isolates the exception path without a separate gateway, keeping the main flow clean |
