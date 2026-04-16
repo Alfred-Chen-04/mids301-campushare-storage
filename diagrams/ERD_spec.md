@@ -1,30 +1,37 @@
 # ERD Specification — Chen Notation
 
-> 本文件遵循 [`../AGENT.md`](../AGENT.md)，最后同步日期：2026-04-15
+> This file follows [`../AGENT.md`](../AGENT.md). Last synced: 2026-04-16.
 >
-> **作图工具**：draw.io（https://app.diagrams.net/）
-> **符号**：Chen notation — 矩形 = 实体，菱形 = 关系，椭圆 = 属性，双椭圆 = 多值属性，下划线 = 主键
-> **导出**：`ERD.png`（600 DPI 或 SVG），嵌入报告 Task 3
+> **Drawing tool**: draw.io (https://app.diagrams.net/)
+> **Notation**: Chen notation — rectangle = entity, diamond = relationship, oval = attribute, double oval = multi-valued attribute, underline = primary key
+> **Export**: `ERD.png` (A4 landscape, 300 DPI, Border 20), embedded in the report for Task 3 as **Figure 1**
+> **Caption**: `Figure 1. Entity-Relationship Diagram for CampusShare Storage (Chen notation).`
 
-## 满分校验
+## Full-marks checklist (tick after finishing in draw.io)
 
-- [x] 实体数 = **9**（要求 ≥ 7）
-- [x] 关联实体数 = **2**（Booking, Review；要求 ≥ 1）
-- [x] 所有 M:N 已拆解
-- [ ] 基数标注（画图时检查）
-- [ ] 所有属性都有椭圆（画图时检查）
-- [ ] 主键下划线（画图时检查）
+- [x] Entity count = **9** (requirement ≥ 7)
+- [x] Associative entities = **2** (Booking, Review; requirement ≥ 1)
+- [x] All M:N relationships resolved
+- [ ] The 9 entity rectangle labels match the §5 terminology table in AGENT.md exactly
+- [ ] Every connector shows cardinality (1 / N / 0..1)
+- [ ] All 11 relationship diamonds present
+- [ ] Booking and Review are drawn as associative entities (diamond enclosing a rectangle)
+- [ ] Every attribute shown as an oval
+- [ ] Primary-key attributes underlined
+- [ ] `StoredItem.photo_url` drawn as a double oval (multi-valued attribute)
+- [ ] `Student.rating_avg` drawn as a dashed oval (derived attribute)
+- [ ] Figure 1 caption centered below the diagram
 
 ---
 
-## 实体清单（9 个）
+## Entity list (9)
 
 ### 1. Student
 - **student_id** (PK)
 - edu_email
 - name
 - phone
-- rating_avg （派生属性，可用双线椭圆）
+- rating_avg (derived attribute — draw with a dashed oval)
 - verified_flag
 - created_at
 
@@ -33,34 +40,34 @@
 - name
 - country
 - address
-- email_domain （用于 .edu 验证，如 "berkeley.edu"）
+- email_domain (used for `.edu` verification, e.g., "berkeley.edu")
 
 ### 3. StorageListing
 - **listing_id** (PK)
 - host_id (FK → Student)
 - title
 - address
-- size_cuft （立方英尺）
+- size_cuft (cubic feet)
 - price_per_day
 - available_from
 - available_to
 - description
 
-### 4. Booking ⭐ 关联实体（连接 Student-as-Renter × StorageListing）
+### 4. Booking — associative entity (connects Student-as-Renter × StorageListing)
 - **booking_id** (PK)
 - renter_id (FK → Student)
 - listing_id (FK → StorageListing)
 - start_date
 - end_date
 - total_price
-- status （pending / confirmed / active / completed / cancelled）
+- status (pending / confirmed / active / completed / cancelled)
 - created_at
 
 ### 5. Payment
 - **payment_id** (PK)
 - booking_id (FK)
 - amount
-- type （deposit / first_period / final / refund）
+- type (deposit / first_period / final / refund)
 - method
 - status
 - timestamp
@@ -69,15 +76,15 @@
 - **item_id** (PK)
 - booking_id (FK)
 - description
-- photo_url （多值属性 → 双椭圆）
+- photo_url (multi-valued attribute → double oval)
 - declared_value
 
-### 7. Review ⭐ 关联实体（连接 reviewer Student × reviewee Student via Booking）
+### 7. Review — associative entity (connects reviewer Student × reviewee Student via Booking)
 - **review_id** (PK)
 - booking_id (FK)
 - reviewer_id (FK → Student)
 - reviewee_id (FK → Student)
-- rating （1–5）
+- rating (1–5)
 - comment
 - created_at
 
@@ -87,7 +94,7 @@
 - raised_by (FK → Student)
 - reason
 - resolution
-- status （open / resolved / escalated）
+- status (open / resolved / escalated)
 
 ### 9. InsurancePolicy
 - **policy_id** (PK)
@@ -99,52 +106,96 @@
 
 ---
 
-## 关系清单（Chen 菱形）
+## Relationship list (Chen diamonds)
 
-| 关系菱形 | 连接 | 基数 | 说明 |
+| Relationship diamond | Connects | Cardinality | Notes |
 |---|---|---|---|
-| **belongs to** | Student — University | N:1 | 每个 Student 属于一所 University |
-| **creates** | Student (Host) — StorageListing | 1:N | Host 可以发布多个房源 |
-| **initiates** | Student (Renter) — Booking | 1:N | Renter 可以发起多个 Booking |
-| **booked for** | Booking — StorageListing | N:1 | 一个 Booking 指向一个 Listing |
-| **contains** | Booking — StoredItem | 1:N | 一个 Booking 可含多件物品 |
-| **settles** | Booking — Payment | 1:N | 一个 Booking 可能多次支付 |
-| **generates** | Booking — Review | 1:2 (optional) | 双方可各评一次 |
-| **reviewer** | Student — Review | 1:N | 某学生是多个 Review 的撰写人 |
-| **reviewee** | Student — Review | 1:N | 某学生被多个 Review 评价 |
-| **raises** | Booking — Dispute | 1:0..N | 一个 Booking 可能出现 0+ 纠纷 |
-| **covered by** | Booking — InsurancePolicy | 1:0..1 | 可选保险 |
+| **belongs to** | Student — University | N:1 | Each Student belongs to one University |
+| **creates** | Student (Host) — StorageListing | 1:N | A Host can publish multiple listings |
+| **initiates** | Student (Renter) — Booking | 1:N | A Renter can initiate multiple Bookings |
+| **booked for** | Booking — StorageListing | N:1 | A Booking targets one Listing |
+| **contains** | Booking — StoredItem | 1:N | A Booking can hold multiple items |
+| **settles** | Booking — Payment | 1:N | A Booking may involve multiple payments |
+| **generates** | Booking — Review | 1:2 (optional) | Both parties may each post one review |
+| **reviewer** | Student — Review | 1:N | A Student authors multiple Reviews |
+| **reviewee** | Student — Review | 1:N | A Student is evaluated in multiple Reviews |
+| **raises** | Booking — Dispute | 1:0..N | A Booking may have 0+ disputes |
+| **covered by** | Booking — InsurancePolicy | 1:0..1 | Optional insurance |
 
 ---
 
-## 画图建议（draw.io 操作步骤）
+## How to draw it (draw.io steps)
 
-1. 打开 https://app.diagrams.net/
-2. 新建 Blank Diagram
-3. 左侧 Shape panel → More Shapes → 勾选 "Entity Relation (Chen)"
-4. 按上表先画实体（矩形），再画关系（菱形）
-5. 属性（椭圆）连接到实体
-6. 关联实体 Booking 和 Review 的菱形内写关系名，并把菱形本身也当实体画（可标注 "associative entity"）
-7. 基数标在连线上（"1" 或 "N"）
-8. 画完：File → Export as → PNG（Border 20px, 300 DPI）
-9. 保存为 `../diagrams/ERD.png`
+1. Open https://app.diagrams.net/
+2. Create a Blank Diagram
+3. Left Shape panel → More Shapes → enable "Entity Relation (Chen)"
+4. Following the table above, draw the entities (rectangles) first, then the relationships (diamonds)
+5. Attach attributes (ovals) to entities
+6. For the associative entities Booking and Review, write the relationship name inside the diamond and treat the diamond itself like an entity (optionally label "associative entity")
+7. Annotate cardinalities on the connectors ("1" or "N")
+8. When finished: File → Export as → PNG (Border 20 px, 300 DPI)
+9. Save as `../diagrams/ERD.png`
 
-## 布局建议（A4 横向一页内）
+## Layout suggestion (A4 landscape 3508×2480 px @ 300 DPI; coordinates are percent of canvas)
 
 ```
-+----------+      +-----------------+      +---------+
-|University|←----→|    Student      |←----→| Review  |
-+----------+      +-----------------+      +---------+
-                   ↓        ↓      ↑            ↑
-           +---------+  +---------+              |
-           |Listing  |  | Booking |←-------------+
-           +---------+  +---------+
-                           ↓    ↓     ↓
-                    +--------+ +-----+ +--------+
-                    |Payment | |Item | |Dispute |
-                    +--------+ +-----+ +--------+
-                                         |
-                                    +----------+
-                                    |Insurance |
-                                    +----------+
+        [0%]                [33%]                [66%]              [100%]
+  ┌──────────────┐                                         ┌──────────────┐
+  │  University  │◆ belongs to                             │    Review    │ ⭐
+  │   (10,20)    │═══════════════╗                         │   (80,20)    │
+  └──────────────┘               ║                         └──────▲───────┘
+                                 ▼                    ┌───────────┘ reviewer
+                          ┌──────────────┐            │     ┌───────┘ reviewee
+                          │   Student    │════════════╪═════╛
+                          │   (40,25)    │
+                          │  (hub)       │
+                          └──────▲───────┘
+             creates ◆───────────┤        ◆initiates (as Renter)
+                     │    (as Host)│
+                     ▼            ▼
+              ┌─────────────┐  ┌─────────────┐  ◆ booked for
+              │StorageListing│◆═══│   Booking   │═══════════════╗
+              │   (20,55)   │    │   (50,55)   │ ⭐ (assoc.)    ║
+              └─────────────┘    └─────┬──┬──┬─┘                ║
+                                       │  │  │                  ║
+                         ◆ contains ───┘  │  └─── ◆ settles     ║
+                                          │                     ║
+                             ┌────────────┴────┬───────────┐    ║
+                             ▼                 ▼           ▼    ▼
+                      ┌─────────────┐  ┌────────────┐  ┌──────────────┐
+                      │ StoredItem  │  │  Payment   │  │   Dispute    │
+                      │   (30,85)   │  │  (50,85)   │  │   (70,85)    │
+                      └─────────────┘  └────────────┘  └──────────────┘
+                                                       ◆ covered by ▼
+                                                       ┌──────────────┐
+                                                       │InsurancePolicy│
+                                                       │   (85,85)    │
+                                                       └──────────────┘
+
+Legend: ■ = entity (rectangle)  ◆ = relationship (diamond)  ⭐ = associative entity (diamond enclosing a rectangle)
+        (x,y) = position on canvas as a percentage
 ```
+
+### How to draw associative entities
+
+Booking and Review are **associative entities**. The standard Chen representation is:
+**outer diamond enclosing an inner rectangle** (a diamond "wrapping" a rectangle).
+
+```
+┌─────────────────────┐
+│ ╱╲       Booking    │╲     <- outer diamond (the relationship)
+│╱  ╲    booking_id   │ ╲
+│╲  ╱    renter_id    │ ╱    <- inner rectangle (the entity carrying attributes)
+│ ╲╱     listing_id   │╱
+│        status       │
+└─────────────────────┘
+```
+
+draw.io steps: drag a diamond (relationship symbol), drag a rectangle and shrink it inside the diamond, then group them. Alternatively, use the preset "Weak Entity / Associative Entity" shape from the ER shape library.
+
+### Cardinality-annotation rules
+
+- Place the label at the **midpoint** of the connector, closer to the corresponding entity
+- Use consistent digits/symbols: `1` / `N` / `M` / `0..1` / `0..N` (do not mix `*` and `N`)
+- Suggested font size 12 pt, gray or black
+- Cross-check every relationship against the "Cardinality" column above

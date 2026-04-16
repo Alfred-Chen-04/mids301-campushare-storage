@@ -1,181 +1,187 @@
-# AGENT.md — CampusShare Storage 项目宪法
+# AGENT.md — CampusShare Storage Project Constitution
 
-> **任何 AI agent（Claude Code / ChatGPT / 其他）打开此项目时，必须先完整读完本文件，再开始任何写作、修改、建模工作。**
-> **本文件是项目唯一的"真相来源（single source of truth）"。任何章节草稿、图、幻灯片若与本文件冲突，以本文件为准；若需要调整，先修改本文件再传播到下游。**
-
----
-
-## 1. 项目一句话定位
-
-**CampusShare Storage** 是一个基于大学 `.edu` 身份验证的**校园内 P2P 短期存储交易平台**，连接暑期离校需要临时存储的学生（Renter）与拥有闲置空间的在校学生（Host），通过平台抽成盈利。
-
-- **课程**：MIDS301 Introduction to Information — A Systems and Design Approach（Spring 2026）
-- **作业总分**：40 分
-- **业务模式**：Peer-to-peer marketplace / Sharing economy
-- **核心战略**：**Focused Differentiation**（聚焦差异化）
-- **核心竞争壁垒**：`.edu` 身份信任 + 步行可达的超短距离 + 双向评价体系
+> **Any AI agent (Claude Code / ChatGPT / others) opening this project MUST read this file in full before writing, modifying, or modeling anything.**
+> **This file is the project's single source of truth. If any section draft, diagram, or slide conflicts with this file, this file wins. If an update is needed, change this file first and then propagate downstream.**
 
 ---
 
-## 2. 关键时间节点
+## 1. Project one-liner
 
-| 日期 | 事件 |
+**CampusShare Storage** is a **campus-internal P2P short-term storage marketplace** gated by university `.edu` identity verification. It connects students who need temporary storage while off campus in the summer (Renters) with students who have unused space (Hosts), and monetizes through a platform commission.
+
+- **Course**: MIDS301 Introduction to Information — A Systems and Design Approach (Spring 2026)
+- **Assignment weight**: 40 points
+- **Business model**: peer-to-peer marketplace / sharing economy
+- **Core strategy**: **Focused Differentiation**
+- **Core competitive moat**: `.edu` identity trust + walkable ultra-short distance + dual-direction review system
+
+---
+
+## 2. Key timeline
+
+| Date | Milestone |
 |---|---|
-| 2026-04-15（今天）| 工作区搭建完毕 |
-| 2026-04-16 | Task 2 初稿 + ERD 规范 |
-| 2026-04-17 | ERD 定稿 + Task 3 |
-| 2026-04-18 | BPMN 定稿 + Task 4 + 价值链表 |
-| 2026-04-19 | Task 1 + Task 5 + PPT 大纲 |
-| 2026-04-20 | 合稿 + 彩排 |
-| **2026-04-21 或 04-23** | **课堂演讲（10 分钟）** |
-| 2026-04-24 – 04-26 | 报告润色 |
-| **2026-04-27 23:59** | **提交最终报告** |
+| 2026-04-15 (today) | Workspace set up |
+| 2026-04-16 | Task 2 first draft + ERD spec |
+| 2026-04-17 | ERD finalized + Task 3 |
+| 2026-04-18 | BPMN finalized + Task 4 + value chain table |
+| 2026-04-19 | Task 1 + Task 5 + presentation outline |
+| 2026-04-20 | Merge into final report + rehearsal |
+| **2026-04-21 or 04-23** | **In-class presentation (10 min)** |
+| 2026-04-24 – 04-26 | Report polish |
+| **2026-04-27 23:59** | **Final report submitted** |
 
 ---
 
-## 3. 目标客户与使用场景
+## 3. Target customers and use cases
 
-### 主客户：Renter（出资方）
-- **Primary**：国际学生，暑期 2–3 个月回国或实习，宿舍物品无处存放
-- **Secondary**：搬宿舍间歇期（学期交接）、短期实习外派、旅行
+### Primary customer: Renter (demand side)
+- **Primary**: international students leaving campus for 2–3 months over summer (return home or summer internship); dorm belongings have nowhere to go
+- **Secondary**: students moving between dorms mid-semester, short-term internships abroad, or travel
 
-### 主客户：Host（供给方）
-- **Primary**：在校学生，家里/公寓/宿舍有闲置空间（衣柜、储藏间、车库）
-- **Secondary**：研究生公寓、合租房空房间
+### Primary customer: Host (supply side)
+- **Primary**: enrolled students with unused space at home/apartment/dorm (closets, storage rooms, garages)
+- **Secondary**: graduate apartments, shared rentals with empty rooms
 
-### 共同特征
-- 都是 **同一所大学**的认证学生（`.edu` 邮箱）
-- **彼此信任基于学校身份**，非陌生人
-
----
-
-## 4. 核心假设（不可随意推翻）
-
-1. **单一大学范围**：业务建模只覆盖一所大学，不建模跨校
-2. **学生双身份**：同一个 Student 实体可同时是 Host 和 Renter，**不拆分为两个实体**
-3. **第三方支付为黑盒**：支付通过 Stripe/PayPal，不建模支付风控细节
-4. **.edu 邮箱即身份**：不建模学生证、校园卡等其他身份证明
-5. **短期租期为主**：1 天 – 3 个月，不建模年度租赁
-6. **物品类型不限**：不对特定品类（易碎品、违禁品）做特殊建模（可在 Task 5 提为局限）
-7. **平台不物理托管物品**：仅撮合交易，Host 自行保管
+### Shared characteristics
+- Both sides are verified students at the **same university** (`.edu` email)
+- **Trust is anchored in university identity**, not stranger-to-stranger
 
 ---
 
-## 5. 核心术语统一表（所有文档必须一致）
+## 4. Core assumptions (not to be overturned casually)
 
-| 术语 | 含义 | 禁用替代词 |
+1. **Single-university scope**: business modeling covers one university only; cross-campus is out of scope
+2. **Dual-role Student**: a single Student entity can act as both Host and Renter — **do not split into two entities**
+3. **Third-party payment is a black box**: payments go through Stripe/PayPal; internal fraud/risk is not modeled
+4. **`.edu` email = identity**: other credentials (student ID, campus card) are not modeled
+5. **Primarily short-term rentals**: 1 day – 3 months; annual leases are not modeled
+6. **No item-category restrictions**: no special modeling for specific categories (perishables, prohibited items) — this can be surfaced as a limitation in Task 5
+7. **Platform does not physically hold items**: only facilitates the transaction; Hosts keep custody
+
+---
+
+## 5. Terminology table (all documents must stay consistent)
+
+| Term | Meaning | Forbidden alternatives |
 |---|---|---|
-| **Student** | 平台用户（学生），可同时为 Host 和 Renter | ~~User / Customer~~ |
-| **Host** | 提供存储空间的 Student 角色 | ~~Provider / Lender / Owner~~ |
-| **Renter** | 使用存储空间的 Student 角色 | ~~Customer / Buyer / Guest~~ |
-| **StorageListing** | Host 发布的房源 | ~~Space / Unit / Room / Spot~~ |
-| **Booking** | Renter 发起的预订订单（关联实体） | ~~Order / Reservation~~ |
-| **StoredItem** | 入库的物品记录 | ~~Item / Thing / Package~~ |
-| **Review** | 双方互评（关联实体） | ~~Rating / Feedback（narrative 里可用 feedback）~~ |
-| **Dispute** | 纠纷记录 | ~~Complaint / Issue~~ |
-| **Payment** | 支付记录 | ~~Transaction / Charge~~ |
-| **University** | 大学实体，用于邮箱域校验 | ~~School / Campus~~ |
-| **InsurancePolicy** | 可选保险附加 | ~~Coverage / Protection~~ |
+| **Student** | Platform user; can simultaneously be Host and Renter | ~~User / Customer~~ |
+| **Host** | A Student acting as a storage provider | ~~Provider / Lender / Owner~~ |
+| **Renter** | A Student acting as a storage seeker | ~~Customer / Buyer / Guest~~ |
+| **StorageListing** | A space published by a Host | ~~Space / Unit / Room / Spot~~ |
+| **Booking** | A reservation initiated by a Renter (associative entity) | ~~Order / Reservation~~ |
+| **StoredItem** | A record of a stored item | ~~Item / Thing / Package~~ |
+| **Review** | Peer review between the two parties (associative entity) | ~~Rating / Feedback (you may use "feedback" in narrative only)~~ |
+| **Dispute** | A record of a dispute | ~~Complaint / Issue~~ |
+| **Payment** | A payment record | ~~Transaction / Charge~~ |
+| **University** | The university entity, used for email-domain validation | ~~School / Campus~~ |
+| **InsurancePolicy** | Optional insurance add-on | ~~Coverage / Protection~~ |
 
 ---
 
-## 6. 字数预算（总 3000 词 ±10%，硬上限 3300）
+## 6. Word budget (total 3000 words ±10%, hard cap 3300)
 
-| Task | 推荐字数 | 累计 |
+| Task | Recommended words | Running total |
 |---|---|---|
 | Task 1 Executive Summary | 300 | 300 |
 | Task 2 Strategy & Value Proposition | 1300 | 1600 |
 | Task 3 Information Design | 450 | 2050 |
 | Task 4 Business Execution | 450 | 2500 |
 | Task 5 Critical Reflection | 500 | 3000 |
-| **合计** | **3000** | ✅ |
+| **Total** | **3000** | |
 
-**字数不包括**：references、appendices、Title Page、表格内容（但正文段落算）。
-
----
-
-## 7. 满分硬性要求速查（按 task）
-
-### Task 2（9 分） — Porter + 战略
-- [ ] 五力**全部**覆盖（Entrants / Suppliers / Buyers / Substitutes / Rivalry）
-- [ ] 每一力**点名具体竞争对手或数据**（U-Haul, Public Storage, Neighbor.com 等）
-- [ ] 明确声明 **Focused Differentiation**，并解释为什么不选 Cost Leadership / Broad Differentiation
-- [ ] 收入模式：**10% 平台抽成 + 可选保险附加费**，解释为什么不选订阅/广告
-
-### Task 3（9 分） — ERD
-- [ ] **Chen 符号**（矩形=实体，菱形=关系，椭圆=属性，双椭圆=多值属性，下划线=主键）
-- [ ] **≥ 7 个实体**（本项目 = 9 个）
-- [ ] **≥ 1 个关联实体**（本项目 = Booking + Review = 2 个）
-- [ ] 所有 M:N 都拆成关联实体
-- [ ] 基数（1:1, 1:N, M:N）全部标注
-- [ ] 有 narrative + assumptions 段
-
-### Task 4（9 分） — BPMN
-- [ ] 价值链 Primary Activities **表格**（Inbound / Operations / Outbound / Marketing & Sales / Service）
-- [ ] BPMN 图采用 **Database Interaction Layout**（Class 5-1 slide 20）
-- [ ] **独立的 Database pool/lane**
-- [ ] **≥ 10 个活动**（本项目 = 14 个）
-- [ ] 每个涉及数据的活动都有 `data flow` 箭头连到 DB
-- [ ] 至少 1 个 sub-process 符号 + 解释（本项目 = Dispute Handling + Payment Processing = 2 个）
-- [ ] 有 narrative + assumptions 段
-
-### Task 5（2 分） — 反思
-- [ ] 伦理问题**专属 CampusShare**（物品照片+地址的可推断敏感信息风险），不能是通用"隐私问题"
-- [ ] 有具体 **mitigation**
-- [ ] 有 **limitations** 与 **future work**
-
-### 格式（贯穿全文）
-- [ ] Title Page 含业务名 + 所有组员
-- [ ] 直接引用用 `"双引号"`（非中文「」或单引号）
-- [ ] APA 引用格式
-- [ ] 未加密 `.doc` 或 `.pdf`
+**Words do NOT include**: references, appendices, Title Page, or table contents (but narrative paragraphs do count).
 
 ---
 
-## 8. 禁止事项（避免跑题或超范围）
+## 7. Full-marks hard requirements (by task)
 
-- ❌ **不要**在报告正文里引入机器学习/推荐算法细节（可在 Task 5 future work 里提一句）
-- ❌ **不要**在 BPMN 里展开支付网关内部逻辑（用 sub-process 封装）
-- ❌ **不要**建模跨校或跨城业务（在假设里排除）
-- ❌ **不要**把 Host 和 Renter 拆成两个 Student 实体
-- ❌ **不要**在 ERD 里加"管理员 / 平台运营"实体（会偏离核心业务）
-- ❌ **不要**把战略写成"我们既低价又高品质"（违反 Porter 的 stuck-in-the-middle 警告）
-- ❌ **不要**超过 3300 词（硬性扣分阈值）
-- ❌ **不要**引用无法核实的数字或虚构的 citation —— 每一个统计数据必须来自真实存在的文献，且数字与原文一致（见下方引用规则）
+### Task 2 (9 pts) — Porter + Strategy
+- [ ] Cover **all five** forces (Entrants / Suppliers / Buyers / Substitutes / Rivalry)
+- [ ] Each force **names a specific competitor or data point** (U-Haul, Public Storage, Neighbor.com, etc.)
+- [ ] Explicitly state **Focused Differentiation** and explain why Cost Leadership / Broad Differentiation were rejected
+- [ ] Revenue model: **10% platform commission + optional insurance add-on**, with reasoning for rejecting subscription / advertising
+
+### Task 3 (9 pts) — ERD
+- [ ] **Chen notation** (rectangle = entity, diamond = relationship, oval = attribute, double oval = multi-valued attribute, underline = primary key)
+- [ ] **≥ 7 entities** (this project = 9)
+- [ ] **≥ 1 associative entity** (this project = Booking + Review = 2)
+- [ ] All M:N relationships resolved into associative entities
+- [ ] All cardinalities (1:1, 1:N, M:N) annotated
+- [ ] Narrative + assumptions section present
+
+### Task 4 (9 pts) — BPMN
+- [ ] Value Chain Primary Activities **table** (Inbound / Operations / Outbound / Marketing & Sales / Service)
+- [ ] BPMN diagram uses the **Database Interaction Layout** (Class 5-1 slide 20)
+- [ ] **Standalone Database pool/lane**
+- [ ] **≥ 10 activities** (this project = 14)
+- [ ] Every data-touching activity has a `data flow` arrow to the DB
+- [ ] At least 1 sub-process symbol + explanation (this project = Dispute Handling + Payment Processing = 2)
+- [ ] Narrative + assumptions section present
+
+### Task 5 (2 pts) — Reflection
+- [ ] Ethical issue is **specific to CampusShare** (inference risk from item photos + Host address), not a generic "privacy" issue
+- [ ] Concrete **mitigation** described
+- [ ] **Limitations** and **future work** sections present
+
+### Formatting (across the whole report)
+- [ ] Title Page includes business name + all group members
+- [ ] Direct quotations use `"straight double quotes"` (not Chinese 「」 or single quotes)
+- [ ] APA citation format
+- [ ] Unencrypted `.doc` or `.pdf`
 
 ---
 
-## 8b. 引用完整性规则（Citation Integrity — 强制执行）
+## 8. Language rule (enforced)
 
-> **每次向任何草稿文件写入新的统计数据、市场数字、百分比或外部结论时，必须立即用 `/verify-citations` 进行核实，或在写作前先搜索确认来源存在且数字正确。**
-
-具体规则：
-1. **每个数字必须有出处** —— 不能凭印象写"约 X 亿"，必须能追溯到具体报告或文章
-2. **付费数据库（IBISWorld、Statista）的数字只有被公开二次来源确认后才能引用**
-3. **不能伪造 DOI、URL、页码**
-4. **引用格式**：APA 7（见 `references/references.md` 中的模板）
-5. **引用后同步更新 `references/references.md`**
-6. **核查 Skill**：运行 `/verify-citations [文件名]` 可自动扫描并修正一个草稿文件中的 citation 问题
+**All project files must be written in English** — including drafts, diagram specs, checklists, comments, table headers, and any other content written into the workspace files. This applies regardless of the language used in the chat conversation with an AI assistant (which may be mixed Chinese/English). If a file contains non-English text, it must be translated before the next working session.
 
 ---
 
-## 9. 尚待用户提供的信息（执行中会逐步问）
+## 9. Prohibited topics (scope-creep guard)
 
-- [ ] **组员姓名列表** —— 用于 Title Page 与演讲分工
-- [ ] **目标大学**（若有）—— 是否锚定某一所大学为首发（如无则用 "a mid-sized US university"）
-- [ ] **Class 5-1 Slide 20 截图 / 说明** —— Database Interaction Layout 的具体样式
-- [ ] **被分配的 peer feedback 目标组** —— 演讲日老师会分配
-- [ ] **老师指定的引用格式细节**（如 APA 6 vs APA 7）
+- ❌ Do **not** introduce ML/recommendation algorithm details in the main body (a one-liner in Task 5 future work is fine)
+- ❌ Do **not** expand the internal logic of the payment gateway in the BPMN (encapsulate as a sub-process)
+- ❌ Do **not** model cross-campus or inter-city business (excluded by assumption)
+- ❌ Do **not** split Host and Renter into two separate Student entities
+- ❌ Do **not** add an "administrator / platform operations" entity in the ERD (drifts from core business)
+- ❌ Do **not** write the strategy as "we're both cheap and premium" (violates Porter's stuck-in-the-middle warning)
+- ❌ Do **not** exceed 3300 words (hard grading threshold)
+- ❌ Do **not** cite unverifiable numbers or fabricated citations — every statistic must trace to a real source with the original number intact (see citation rules below)
 
 ---
 
-## 10. 工作区文件导航
+## 9b. Citation integrity rules (enforced)
+
+> **Every time you add a new statistic, market number, percentage, or externally sourced conclusion to any draft file, immediately verify it with `/verify-citations`, or confirm the source exists and the figure is correct before writing.**
+
+Specific rules:
+1. **Every number needs a source** — no "approximately X billion" from memory; it must be traceable to a specific report or article
+2. **Paywalled database numbers (IBISWorld, Statista) may be cited only after a public secondary source has confirmed them**
+3. **Do not fabricate DOIs, URLs, or page numbers**
+4. **Citation format**: APA 7 (see the template in `references/references.md`)
+5. **Update `references/references.md` immediately after citing**
+6. **Verification skill**: running `/verify-citations [filename]` scans and corrects citation issues in a draft file
+
+---
+
+## 10. Information still pending from the user (will be asked during execution)
+
+- [ ] **Group member names** — for the Title Page and speaking assignments
+- [ ] **Target university** (if any) — whether to anchor on one university for launch (otherwise use "a mid-sized US university")
+- [ ] **Screenshot / description of Class 5-1 Slide 20** — the exact form of the Database Interaction Layout
+- [ ] **Assigned peer-feedback target group** — assigned on presentation day
+- [ ] **Citation-format details from the instructor** (e.g., APA 6 vs APA 7)
+
+---
+
+## 11. Workspace file map
 
 ```
 /Users/alfred/Desktop/MIDS 301 Final Project/
-├── MIDS301 S26 Group Assignment (1).docx   作业原文（勿改）
-├── AGENT.md                                  ⭐ 本文件
-├── README.md                                 工作区说明
+├── MIDS301 S26 Group Assignment (1).docx   original assignment (do not edit)
+├── AGENT.md                                  ⭐ this file
+├── README.md                                 workspace overview
 ├── drafts/
 │   ├── 01_executive_summary.md
 │   ├── 02_strategy.md
@@ -193,20 +199,20 @@
 ├── references/
 │   └── references.md
 └── final/
-    ├── CampusShare_Storage_Report.docx   （最终合稿，尚未生成）
-    └── CampusShare_Storage_Slides.pptx    （最终 PPT，尚未生成）
+    ├── CampusShare_Storage_Report.docx   (merged final report, not yet generated)
+    └── CampusShare_Storage_Slides.pptx    (final slide deck, not yet generated)
 ```
 
 ---
 
-## 11. 迭代规则
+## 12. Iteration rules
 
-- 本文件每次重大决策（如改战略、改客户、改实体）后**第一个**更新
-- 更新时在文末 Changelog 加一行
-- 每个 Task 的 draft 文件开头必须写 `> 本文件遵循 AGENT.md，最后同步日期：YYYY-MM-DD`
+- This file is the **first** thing updated after any major decision (strategy change, customer change, entity change, etc.)
+- Add one line to the Changelog at the end on every update
+- Every Task draft file must open with `> This file follows AGENT.md. Last synced: YYYY-MM-DD`
 
 ---
 
 ## Changelog
 
-- **2026-04-15**：初稿建立。确认业务方向（CampusShare Storage）、战略（Focused Differentiation）、9 实体 ERD、14 活动 BPMN、3000 词分配。
+- **2026-04-15**: initial draft. Confirmed business direction (CampusShare Storage), strategy (Focused Differentiation), 9-entity ERD, 14-activity BPMN, and 3000-word allocation.

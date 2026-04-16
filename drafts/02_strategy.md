@@ -1,15 +1,15 @@
 # Task 2 — Strategy & Value Proposition
 
-> 本文件遵循 [`../AGENT.md`](../AGENT.md)，最后同步日期：2026-04-16
+> This file follows [`../AGENT.md`](../AGENT.md). Last synced: 2026-04-16.
 >
-> **字数预算**：~1300 词 | **分值**：9 分 | **计划完成日**：2026-04-16
+> **Word budget**: ~1300 words | **Points**: 9 | **Target completion**: 2026-04-16
 
-## 字数分配
+## Word allocation
 
-| 小节 | 目标词数 |
+| Section | Target words |
 |---|---|
 | 2.1 Industry Context & Opportunity | 150 |
-| 2.2 Porter's Five Forces | 850（每力约 170） |
+| 2.2 Porter's Five Forces | 850 (~170 per force) |
 | 2.3 Generic Strategy Selection | 200 |
 | 2.4 Revenue Stream & Pricing | 100 |
 | **Total** | **1300** |
@@ -66,17 +66,37 @@ CampusShare generates revenue through two streams. The **primary** source is a 1
 
 ---
 
-## 引用清单（写作时同步）
+## Citation tracker (update while writing)
 
-- [x] 共享经济规模数据 → PwC 2015 + Allied Market Research 2023
-- [x] 美国自存储市场规模 → IBISWorld 2024（$39.5B in 2023）
-- [x] 国际学生数据 → IIE Open Doors 2024（1,126,690 in 2023/24）
-- [x] Neighbor.com（竞争对手分析）
-- [x] Airbnb 服务费结构 → Airbnb 2023 10-K（host 3%, guest 14–16%）
-- [x] Porter 战略理论 → Porter 1985
+- [x] Sharing economy size → PwC 2015 + Allied Market Research 2023
+- [x] U.S. self-storage market size → IBISWorld 2024 ($39.5B in 2023)
+- [x] International student data → IIE Open Doors 2024 (1,126,690 in 2023/24)
+- [x] Neighbor.com (competitor analysis)
+- [x] Airbnb service-fee structure → Airbnb 2023 10-K (host 3%, guest 14–16%)
+- [x] Porter strategy theory → Porter 1985
 
 ---
 
-## 字数检查
+## References
 
-当前字数：~1300 / 1300 ✓
+Airbnb, Inc. (2023). *Annual report / Form 10-K.* U.S. Securities and Exchange Commission. https://investors.airbnb.com/financials/annual-reports/
+
+Allied Market Research. (2023). *Sharing economy market size, share, trends, and forecast to 2032.* https://www.alliedmarketresearch.com/sharing-economy-market-A230672
+
+IBISWorld. (2024). *Storage & warehouse leasing in the US* (Industry Report OD5920). https://www.ibisworld.com/united-states/industry/storage-warehouse-leasing/1351/
+
+Institute of International Education. (2024). *Open Doors 2024: Report on international educational exchange.* https://opendoorsdata.org/annual-release/international-students/
+
+Neighbor.com. (n.d.). *About Neighbor.* https://www.neighbor.com/
+
+Porter, M. E. (1985). *Competitive advantage: Creating and sustaining superior performance.* Free Press.
+
+Porter, M. E. (2008). The five competitive forces that shape strategy. *Harvard Business Review, 86*(1), 78–93.
+
+PwC. (2015). *The sharing economy: Consumer Intelligence Series.* https://www.pwc.com/us/en/technology/publications/assets/pwc-consumer-intelligence-series-the-sharing-economy.pdf
+
+---
+
+## Word count check
+
+Current: ~1300 / 1300

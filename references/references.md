@@ -1,11 +1,11 @@
 # References — APA Format
 
-> 本文件遵循 [`../AGENT.md`](../AGENT.md)，最后同步日期：2026-04-15
+> This file follows [`../AGENT.md`](../AGENT.md). Last synced: 2026-04-15.
 >
-> **引用格式**：APA 7th（默认；若课程要求 APA 6 再调整）
-> **原则**：写作时同步添加，交稿前统一核对格式
+> **Citation format**: APA 7th (default; adjust to APA 6 if the course requires it)
+> **Principle**: add entries while writing; reconcile formatting before submission
 
-## 在用 / 待用引用清单（按主题分组）
+## Active / planned citations (grouped by topic)
 
 ### Sharing Economy & Market Size
 - [x] PwC. (2015). _The sharing economy_. Consumer Intelligence Series. https://www.pwc.com/us/en/technology/publications/assets/pwc-consumer-intelligence-series-the-sharing-economy.pdf
@@ -31,31 +31,31 @@
 
 ---
 
-## APA 7 格式速查
+## APA 7 quick reference
 
-### 期刊文章
+### Journal article
 > Author, A. A., & Author, B. B. (Year). Title of article. _Journal Name_, _Volume_(Issue), page range. https://doi.org/...
 
-### 书籍
+### Book
 > Author, A. A. (Year). _Title of work_ (Edition). Publisher.
 
-### 网页
+### Web page
 > Author or Organization. (Year, Month Day). _Title of page_. Site Name. URL
 
-### 公司报告
+### Company report
 > Company Name. (Year). _Title of report_. URL or Publisher.
 
-### 引文（in-text citation）
-- 段落中：`(Porter, 1985)`
-- 直接引用：`(Porter, 1985, p. 23)` — **必须加双引号"..."**
+### In-text citation
+- In paragraph: `(Porter, 1985)`
+- Direct quotation: `(Porter, 1985, p. 23)` — **must be wrapped in "double quotes"**
 
 ---
 
-## 交稿前 Checklist
+## Pre-submission checklist
 
-- [ ] 所有引用按字母顺序排列
-- [ ] 所有 in-text citation 在 Reference List 里都能找到
-- [ ] Reference List 里所有条目在正文都有引用
-- [ ] URL 可点击（蓝色下划线）
-- [ ] DOI 优先于 URL（若有）
-- [ ] Hanging indent 格式（每条第二行缩进）
+- [ ] All entries alphabetized
+- [ ] Every in-text citation appears in the reference list
+- [ ] Every reference-list entry is cited in the body
+- [ ] URLs are clickable (blue underlined)
+- [ ] DOIs used in preference to URLs when available
+- [ ] Hanging-indent formatting (second and subsequent lines indented)

@@ -1,12 +1,12 @@
 # Task 5 — Critical Reflection
 
-> 本文件遵循 [`../AGENT.md`](../AGENT.md)，最后同步日期：2026-04-16
+> This file follows [`../AGENT.md`](../AGENT.md). Last synced: 2026-04-16.
 >
-> **字数预算**：~500 词 | **分值**：2 分 | **计划完成日**：2026-04-19
+> **Word budget**: ~500 words | **Points**: 2 | **Target completion**: 2026-04-19
 
-## 字数分配
+## Word allocation
 
-| 小节 | 目标词数 |
+| Section | Target words |
 |---|---|
 | 5.1 Ethical Issue (CampusShare-specific) | 200 |
 | 5.2 Project Limitations | 150 |
@@ -35,6 +35,14 @@ Several extensions are viable once the initial campus model achieves product-mar
 
 ---
 
-## 字数检查
+## References
 
-当前字数：~500 / 500 ✓
+Federal Trade Commission. (2024). *The Federal Trade Commission 2023 privacy and data security update.* https://www.ftc.gov/reports/federal-trade-commission-2023-privacy-data-security-update
+
+Nissenbaum, H. (2010). *Privacy in context: Technology, policy, and the integrity of social life.* Stanford University Press.
+
+---
+
+## Word count check
+
+Current: ~500 / 500

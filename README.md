@@ -1,45 +1,45 @@
-# CampusShare Storage — 工作区
+# CampusShare Storage — Workspace
 
-MIDS301 Spring 2026 小组期末项目工作目录。
+Working directory for the MIDS301 Spring 2026 group final project.
 
-## 第一次进入工作区的人请先读
+## Read first (anyone new to the workspace)
 
-1. [`AGENT.md`](AGENT.md) — **项目宪法**，所有决策、术语、假设、硬性要求都在这里
-2. [`MIDS301 S26 Group Assignment (1).docx`](MIDS301%20S26%20Group%20Assignment%20%281%29.docx) — 作业原文
+1. [`AGENT.md`](AGENT.md) — **project constitution**; all decisions, terminology, assumptions, and hard requirements live here
+2. [`MIDS301 S26 Group Assignment (1).docx`](MIDS301%20S26%20Group%20Assignment%20%281%29.docx) — original assignment text
 
-## 目录说明
+## Directory guide
 
-| 目录 / 文件 | 用途 |
+| Directory / File | Purpose |
 |---|---|
-| [`AGENT.md`](AGENT.md) | 项目单一真相来源（必读） |
-| [`drafts/`](drafts/) | 5 个任务的 Markdown 草稿 |
-| [`diagrams/`](diagrams/) | ERD、BPMN、价值链表的**文本规范**（画图前先确认规范） |
-| [`presentation/`](presentation/) | 10 分钟课堂演讲大纲 |
-| [`peer_feedback/`](peer_feedback/) | 给被分配组的投资人反馈模板 |
-| [`references/`](references/) | APA 参考文献清单（随写随加） |
-| [`final/`](final/) | 最终合稿产出：`.docx` 报告 + `.pptx` 幻灯片 |
+| [`AGENT.md`](AGENT.md) | Single source of truth (required reading) |
+| [`drafts/`](drafts/) | Markdown drafts for the 5 tasks |
+| [`diagrams/`](diagrams/) | **Text specifications** for the ERD, BPMN, and value chain (confirm the spec before drawing) |
+| [`presentation/`](presentation/) | 10-minute in-class presentation outline |
+| [`peer_feedback/`](peer_feedback/) | Investor-feedback template for the assigned peer group |
+| [`references/`](references/) | APA references list (update as you cite) |
+| [`final/`](final/) | Final merged deliverables: `.docx` report + `.pptx` slides |
 
-## 当前进度
+## Current progress
 
-- [x] 工作区搭建（2026-04-15）
-- [ ] Task 2 Strategy 草稿（目标 2026-04-16）
-- [ ] ERD 定稿（目标 2026-04-17）
-- [ ] BPMN 定稿（目标 2026-04-18）
-- [ ] Task 1 + Task 5 + PPT 大纲（目标 2026-04-19）
-- [ ] 合稿与彩排（目标 2026-04-20）
-- [ ] **课堂演讲**（2026-04-21 或 04-23）
-- [ ] **最终报告提交**（2026-04-27 23:59）
+- [x] Workspace set up (2026-04-15)
+- [ ] Task 2 Strategy draft (target 2026-04-16)
+- [ ] ERD finalized (target 2026-04-17)
+- [ ] BPMN finalized (target 2026-04-18)
+- [ ] Task 1 + Task 5 + presentation outline (target 2026-04-19)
+- [ ] Merge + rehearsal (target 2026-04-20)
+- [ ] **In-class presentation** (2026-04-21 or 04-23)
+- [ ] **Final report submission** (2026-04-27 23:59)
 
-## 关键作图工具
+## Key drawing tools
 
-- **draw.io**（https://app.diagrams.net/）— ERD（Chen 符号）、BPMN 2.0，导出 PNG 嵌入 Word
-- **Microsoft Word** — 最终报告
-- **PowerPoint / Keynote** — 课堂演讲
+- **draw.io** (https://app.diagrams.net/) — ERD (Chen notation) and BPMN 2.0; export PNG for embedding in Word
+- **Microsoft Word** — final report
+- **PowerPoint / Keynote** — in-class presentation
 
-## 硬性提醒
+## Hard reminders
 
-- 总字数 **3000 词 ±10%**（2700 – 3300），超 3300 每 400 词扣 10%
-- ERD 必须 **Chen 符号**，≥ 7 实体，≥ 1 关联实体
-- BPMN 必须 **Database Interaction Layout**，≥ 10 活动
-- 直接引用用 `"双引号"`，APA 格式
-- 不加密 `.doc` 或 `.pdf` 提交
+- Total word budget is **3000 words ±10%** (2700 – 3300); exceeding 3300 loses 10% per 400 extra words
+- ERD must use **Chen notation**, ≥ 7 entities, ≥ 1 associative entity
+- BPMN must use the **Database Interaction Layout**, ≥ 10 activities
+- Direct quotations use `"straight double quotes"`; APA format
+- Submit as unencrypted `.doc` or `.pdf`

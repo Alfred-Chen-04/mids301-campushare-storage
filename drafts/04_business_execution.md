@@ -1,18 +1,18 @@
 # Task 4 — Business Execution (Value Chain + BPMN)
 
-> 本文件遵循 [`../AGENT.md`](../AGENT.md)，最后同步日期：2026-04-16
+> This file follows [`../AGENT.md`](../AGENT.md). Last synced: 2026-04-16.
 >
-> **字数预算**：~450 词 | **分值**：9 分 | **计划完成日**：2026-04-18
+> **Word budget**: ~450 words | **Points**: 9 | **Target completion**: 2026-04-18
 >
-> **配套文件**：
-> - [`../diagrams/value_chain_table.md`](../diagrams/value_chain_table.md)（价值链表）
-> - [`../diagrams/BPMN_spec.md`](../diagrams/BPMN_spec.md)（BPMN 规范） → `../diagrams/BPMN.png`
+> **Companion files**:
+> - [`../diagrams/value_chain_table.md`](../diagrams/value_chain_table.md) (value chain table)
+> - [`../diagrams/BPMN_spec.md`](../diagrams/BPMN_spec.md) (BPMN spec) → `../diagrams/BPMN.png`
 
-## 字数分配
+## Word allocation
 
-| 小节 | 目标词数 |
+| Section | Target words |
 |---|---|
-| 4.1 Value Chain Primary Activities（表格 + 简述） | 120 |
+| 4.1 Value Chain Primary Activities (table + summary) | 120 |
 | 4.2 Selected Process & BPMN Narrative | 250 |
 | 4.3 Sub-process Justification & Assumptions | 80 |
 | **Total** | **450** |
@@ -53,6 +53,12 @@ The model operates under the following assumptions: `.edu` email verification is
 
 ---
 
-## 字数检查
+## References
 
-当前字数：~450 / 450 ✓
+Porter, M. E. (1985). *Competitive advantage: Creating and sustaining superior performance.* Free Press.
+
+---
+
+## Word count check
+
+Current: ~450 / 450

@@ -1,14 +1,14 @@
 # Task 1 — Executive Summary
 
-> 本文件遵循 [`../AGENT.md`](../AGENT.md)，最后同步日期：2026-04-16
+> This file follows [`../AGENT.md`](../AGENT.md). Last synced: 2026-04-16.
 >
-> **字数预算**：~300 词 | **分值**：1 分 | **计划完成日**：2026-04-19
+> **Word budget**: ~300 words | **Points**: 1 | **Target completion**: 2026-04-19
 
-## 满分要求（摘自 AGENT.md）
+## Full-marks requirements (from AGENT.md)
 
-- 高层 pitch 口吻，面向投资人
-- 必含 5 要素：痛点 / 解决方案 / 市场规模 / 收入模式 / 护城河
-- 写作顺序：**最后写**（Task 2–5 定稿后）
+- High-level pitch tone, written for an investor audience
+- Must include 5 elements: problem / solution / market size / revenue model / moat
+- Writing order: **written last** (after Tasks 2–5 are finalized)
 
 ---
 
@@ -24,6 +24,14 @@ The platform's competitive moat rests on three pillars: the `.edu` identity wall
 
 ---
 
-## 字数检查
+## References
 
-当前字数：~310 / 300 ✓（在 ±10% 范围内）
+IBISWorld. (2024). *Storage & warehouse leasing in the US* (Industry Report OD5920). https://www.ibisworld.com/united-states/industry/storage-warehouse-leasing/1351/
+
+Institute of International Education. (2024). *Open Doors 2024: Report on international educational exchange.* https://opendoorsdata.org/annual-release/international-students/
+
+---
+
+## Word count check
+
+Current: ~310 / 300 (within ±10%)

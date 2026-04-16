@@ -1,16 +1,16 @@
 # Task 3 — Information Design (ERD)
 
-> 本文件遵循 [`../AGENT.md`](../AGENT.md)，最后同步日期：2026-04-16
+> This file follows [`../AGENT.md`](../AGENT.md). Last synced: 2026-04-16.
 >
-> **字数预算**：~450 词 | **分值**：9 分 | **计划完成日**：2026-04-17
+> **Word budget**: ~450 words | **Points**: 9 | **Target completion**: 2026-04-17
 >
-> **配套图**：[`../diagrams/ERD_spec.md`](../diagrams/ERD_spec.md)（画图规范） → `../diagrams/ERD.png`（draw.io 导出）
+> **Companion diagram**: [`../diagrams/ERD_spec.md`](../diagrams/ERD_spec.md) (drawing spec) → `../diagrams/ERD.png` (exported from draw.io)
 
-## 字数分配
+## Word allocation
 
-| 小节 | 目标词数 |
+| Section | Target words |
 |---|---|
-| 3.1 Narrative（描述 ERD 内容） | 300 |
+| 3.1 Narrative (describe the ERD) | 300 |
 | 3.2 Assumptions & Limitations | 150 |
 | **Total** | **450** |
 
@@ -34,6 +34,6 @@ The data model operates under the following assumptions. First, the platform sco
 
 ---
 
-## 字数检查
+## Word count check
 
-当前字数：~450 / 450 ✓
+Current: ~450 / 450

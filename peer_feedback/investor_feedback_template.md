@@ -1,89 +1,89 @@
 # Investor Feedback Template
 
-> 本文件遵循 [`../AGENT.md`](../AGENT.md)，最后同步日期：2026-04-15
+> This file follows [`../AGENT.md`](../AGENT.md). Last synced: 2026-04-15.
 >
-> **用途**：演讲日对另一组提交 peer feedback（作业 Task 6 的一部分）
+> **Purpose**: submit peer feedback for the assigned group on presentation day (Task 6 portion of the assignment)
 
-## 被评估组信息
+## Reviewed-group information
 
-- **组名/业务名**：_待老师分配后填写_
-- **组员**：
-- **演讲日期**：
-
----
-
-## 评估维度（模拟投资人视角）
-
-### 1. Business Idea Clarity（清晰度）
-- 痛点是否真实？
-- 解决方案是否直接对应痛点？
-- 目标客户是否明确？
-
-**评分（1–5）**：
-**点评**：
-
-### 2. Strategic Positioning（战略定位）
-- Porter 五力是否全面且具体？
-- Generic strategy 选择是否合理？
-- 是否与竞争者形成真实差异化？
-
-**评分（1–5）**：
-**点评**：
-
-### 3. Revenue Model（盈利模式）
-- 收入来源是否可持续？
-- 单位经济模型是否成立？
-- 与目标客户支付意愿是否匹配？
-
-**评分（1–5）**：
-**点评**：
-
-### 4. Information Design（信息模型）
-- ERD 实体是否覆盖核心业务？
-- 关联实体使用是否得当？
-- 是否有遗漏或冗余？
-
-**评分（1–5）**：
-**点评**：
-
-### 5. Business Execution（执行可行性）
-- BPMN 流程是否能真实运行？
-- 是否处理了异常路径？
-- 数据库交互是否合理？
-
-**评分（1–5）**：
-**点评**：
-
-### 6. Ethics & Future（社会责任与前瞻）
-- 伦理问题是否具体？
-- 缓解措施是否可行？
-- 未来扩展是否有野心且可信？
-
-**评分（1–5）**：
-**点评**：
+- **Group / business name**: _fill in after instructor assigns_
+- **Group members**:
+- **Presentation date**:
 
 ---
 
-## 投资决定（Role-play）
+## Evaluation dimensions (simulated investor perspective)
 
-☐ **Would invest**（给出一句话理由）
-☐ **Would not invest**（给出主要顾虑）
-☐ **Conditional**（满足什么条件才会投）
+### 1. Business Idea Clarity
+- Is the pain point real?
+- Does the solution map directly to the pain point?
+- Is the target customer clearly defined?
 
-**顾虑（最多 3 条）**：
+**Score (1–5)**:
+**Comments**:
+
+### 2. Strategic Positioning
+- Are Porter's Five Forces covered completely and concretely?
+- Is the generic strategy choice well-reasoned?
+- Does it present genuine differentiation from competitors?
+
+**Score (1–5)**:
+**Comments**:
+
+### 3. Revenue Model
+- Is the revenue source sustainable?
+- Does the unit economics model hold up?
+- Does it match the target customer's willingness to pay?
+
+**Score (1–5)**:
+**Comments**:
+
+### 4. Information Design
+- Do the ERD entities cover the core business?
+- Are associative entities used appropriately?
+- Are there omissions or redundancies?
+
+**Score (1–5)**:
+**Comments**:
+
+### 5. Business Execution
+- Can the BPMN process actually run in practice?
+- Are exception paths handled?
+- Are database interactions reasonable?
+
+**Score (1–5)**:
+**Comments**:
+
+### 6. Ethics & Future
+- Is the ethical issue concrete?
+- Are the mitigations feasible?
+- Is the future roadmap both ambitious and credible?
+
+**Score (1–5)**:
+**Comments**:
+
+---
+
+## Investment decision (role-play)
+
+☐ **Would invest** (one-line reason)
+☐ **Would not invest** (main concern)
+☐ **Conditional** (which conditions must be met)
+
+**Concerns (up to 3)**:
 1.
 2.
 3.
 
-**亮点（最多 3 条）**：
+**Strengths (up to 3)**:
 1.
 2.
 3.
 
 ---
 
-## 签字
+## Sign-off
 
-- **我们的组名**：CampusShare Storage
-- **评审人**：_全体组员签字_
-- **日期**：
+- **Our group name**: CampusShare Storage
+- **Reviewers**: _signed by all group members_
+- **Date**:
